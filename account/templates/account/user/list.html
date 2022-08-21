@@ -1,0 +1,24 @@
+{% extends "_base.html" %}
+{% load thumbnail %}
+{% block tittle %}
+    Dashboard
+{% endblock tittle %}
+    
+
+{% block content %}
+<div class='container mt-2'>
+  <h4>user list</h4>
+  <div class="row">
+  {% for u in users %}
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top w-50" src="{% thumbnail u.profile.photo 100x0 %}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{u.username}}</h5>
+      <p class="card-text">{{u.get_full_name}}</p>
+      <a href="{% url 'account:user_detail' u.username %}" class="btn btn-success">more detail</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+{% endblock content %}

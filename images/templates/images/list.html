@@ -1,0 +1,14 @@
+{% extends "_base.html" %}
+{% load thumbnail %}
+{% block tittle %}
+    Social App
+{% endblock tittle %}
+    
+
+{% block content %}
+<div class='container mt-2'>
+  <h5>Create Gallery</h5>
+  {% for image in images %}
+  <a href="{{image.get_absolute_url}}"><img src="{% thumbnail image.image 300x0 %}" class="img-thumbnail" alt="Cinque Terre"></a> 
+  {% endfor %}
+{% endblock content %}

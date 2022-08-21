@@ -1,0 +1,28 @@
+{% extends "_base.html" %}
+
+{% block tittle %}
+    Social App
+{% endblock tittle %}
+    
+
+{% block content %}
+<div class='container mt-2'>
+    <form method='POST'>
+            {% for field in form %}
+            <div class="mb-3">
+                {% if field.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{field.errors}}
+                  </div>
+                {% endif %}
+                
+            <label for="{{field.auto_id}}" class="form-label">{{field.label}}</label>
+            {{field}}
+          </div>
+            {% endfor %}
+            {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      <a href="{% url 'account:user_register' %}">Register New Account</a>
+    </div>
+{% endblock content %}

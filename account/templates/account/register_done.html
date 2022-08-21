@@ -1,0 +1,13 @@
+{% extends "_base.html" %}
+
+{% block tittle %}
+    Dashboard
+{% endblock tittle %}
+    
+
+{% block content %}
+<div class='container mt-2'>
+  <p>you are successfully registered login to use app</p>
+  <a href="{% url 'account:user_login' %}">login from here</a>
+</div>
+{% endblock content %}

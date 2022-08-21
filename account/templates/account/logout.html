@@ -1,0 +1,13 @@
+{% extends "_base.html" %}
+
+{% block tittle %}
+    Dashboard
+{% endblock tittle %}
+    
+
+{% block content %}
+<div class='container mt-2'>
+  <p>you are successfully logout</p>
+  <a href="{% url 'account:home' %}">back to home</a>
+</div>
+{% endblock content %}

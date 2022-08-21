@@ -1,0 +1,17 @@
+{% extends "_base.html" %}
+
+{% block tittle %}
+    Dashboard
+{% endblock tittle %}
+    
+
+{% block content %}
+<div class='container mt-2'>
+  <p>Welcome to your dashboard</p>
+  
+  {% for action in actions %}
+    {{action}}
+  {% endfor %}
+    
+</div>
+{% endblock content %}

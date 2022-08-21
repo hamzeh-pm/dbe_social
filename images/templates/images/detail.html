@@ -1,0 +1,66 @@
+{% extends "_base.html" %}
+
+{% block tittle %}
+    Social App
+{% endblock tittle %}
+    
+
+{% block content %}
+<div class='container mt-2'>
+  <h5>Create Gallery</h5>
+  <h4>{{image.title}}</h4>
+  <img src="{{image.image.url}}" class="img-thumbnail" alt="Cinque Terre">
+  <p>{{image.description}}</p>
+  {% with total_likes=image.user_likes.count user_likes=image.user_likes.all %}
+  {% if user in user_likes %}
+   <button id="like-button" action="dislike" image_id="{{image.id}}" class="btn btn-primary">Likes <span class="badge badge-primary" id="like-count">{{total_likes}}</span></button>
+  {% else %}
+    <button id="like-button" action="like" image_id="{{image.id}}"  class="btn btn-primary">Likes <span class="badge badge-primary" id="like-count">{{total_likes}}</span></button>
+  {% endif %}
+  {% endwith %}
+
+  <script>
+    const likeButton = document.getElementById("like-button");
+
+    const likeCount = document.getElementById("like-count"); 
+
+    async function postData(url = '', data = {}) {
+      // Default options are marked with *
+      const response = await fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': Cookies.get('csrftoken')
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+      });
+      return response.json(); // parses JSON response into native JavaScript objects
+    }
+
+    const doLike = () => {
+    const likes = parseInt(likeCount.textContent)
+      const action = likeButton.getAttribute('action')
+      const image_id = likeButton.getAttribute('image_id')
+
+      postData('{% url 'images:image_like' %}', { action: action, image_id: image_id })
+        .then((data) => {
+          if(data.status == "ok") {
+            if(action === 'like') {
+              likeCount.textContent = likes + 1
+            }
+            else {
+              likeCount.textContent = likes - 1
+            }
+          }
+        });
+    }
+
+    likeButton.addEventListener("click", doLike);
+  </script>
+{% endblock content %}

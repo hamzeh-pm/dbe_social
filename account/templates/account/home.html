@@ -1,0 +1,17 @@
+{% extends '_base.html' %}
+
+
+{% block title %}
+    Social App
+{% endblock title %}
+    
+
+
+{% block content %}
+<div class="mt-4 p-5 bg-secondary text-white rounded">
+    <h1>Social App</h1>
+    <p>our great social app...</p>
+    <a class="text-white" href="{% url 'account:user_login' %}">login</a>
+  </div>
+{% endblock content %}
+    
